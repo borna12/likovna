@@ -1,0 +1,123 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;">
+  <title>Enciklopedija likovnih umjetnosti</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="likovna umjetnost, enciklopedija, Andre Mohorovičić, 1959–1966., Slavko Batušić, Mirko Šeper, Leksikografski zavod Miroslav Krleža">
+  <meta name="author" content="LZMK, Andre Mohorovičić">
+  <meta property="og:title" content="Enciklopedija likovnih umjetnosti" />
+<meta property="og:image" content="og-slika.jpg" />
+  <!-- Compiled and minified JavaScript -->
+  <link rel="stylesheet" href="bulma/css/bulma.min.css">
+  <link rel="stylesheet" href="bulma/css/bulma-tooltip.min.css">
+  <link title=style href="stil/tekst.css" type=text/css rel=stylesheet>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/2d5bc62cc3.js"></script>
+</head>
+<body>
+  <section class="hero is-info">
+    <div class="hero-body">
+      <div class="container" style="text-align: center;">
+        <p class="title" id="vrh">
+          <img src="logo.png">
+        </p>
+        <p class="subtitle">
+
+        </p>
+      </div>
+    </div>
+  </section>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div id="navbarBasicExample" class="navbar-menu"><div class="container">
+      <div class="navbar-start">
+        <a class="navbar-item js-modal-trigger" id="impresum" data-target='modal-js-example' onclick='modal(this)' >
+          Impresum
+        </a>
+  
+        <a class="navbar-item" href="knjiga/" target="_blank">
+          Prelistaj
+        </a>
+      </div></div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="content">
+      
+<p></p>
+      <form action="https://duckduckgo.com/" method="get" id="form-search" class="field has-addons">
+       <!-- <div class="select">
+          <select id="odabir">
+            <option value="Naslov">Naslov</option>
+            <option value="Autor">Autor</option>
+          </select>
+        </div>-->
+        <div class="control is-expanded autocomplete">
+          <input class="input" type="text" type="text" name="q" id="input-search" placeholder="Pretraži leksikon" autocomplete="off"  required="required">
+          <input type="hidden" name="sites" value="http://hrevija.lzmk.hr/">
+        </div>
+        <div class="control">
+          <button class="button is-info js-modal-trigger" id="btnSearch">
+            
+              <span class="icon">
+                <i class="fa fa-search" aria-hidden="true"></i>
+
+              </span>
+            </span>
+
+          </button>
+        </div>
+
+      </form>
+      <ul class="kazalo"><a>A</a><a>B</a><a>C</a><a>Č</a><a>Ć</a><a>D</a><a>Dž</a><a>Đ</a><a>E</a><a>F</a><a>G</a><a>H</a><a>I</a><a>J</a><a>K</a><a>L</a><a>Lj</a><a>M</a><a>N</a><a>O</a><a>P</a><a>Q</a><a>R</a><a>S</a><a>Š</a><a>T</a><a>U</a><a >V</a><a>W</a><a>Y</a><a>Z</a><a>Ž</a></ul>
+
+      <div id="search-status" role="status"></div>
+      <ul id="search-results"><p style="text-align: center;">
+        <img src="sport.jpg" style="opacity: 0;">
+            </ul>
+            <div class="back-to-top-wrapper sakri"><a href="#vrh" class="back-to-top-link" aria-label="Scroll to Top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+  </div></div>
+
+  <!-- Mirrored from hrevija.lzmk.hr/web/HR/katknj.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 May 2022 16:38:14 GMT -->
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+
+      <p><a href="https://www.lzmk.hr/"><img src="lzmk.png" style="margin: auto;" /></a></p>
+      <p>
+
+        ©
+        <script>document.write(new Date().getFullYear())</script> Leksikografski zavod Miroslav Krleža. Sva prava
+        pridržana.
+      </p>
+    </div>
+  </footer>
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <a onclick='copyClipboard(this)' data-tooltip="kopiraj citat" class="has-tooltip-top is-primary">citiraj</a>
+        </footer>
+        <!-- Your content -->
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+</body>
+<script src="index.js">
+ 
+</script>
+
+</html>
