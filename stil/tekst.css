@@ -148,6 +148,10 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 #search-results.stupci{    -webkit-columns: 4;
   -moz-columns: 4;
   columns: 4;margin-left: 2em;}
+
+
+  @media screen and (max-width: 1023px){
+.navbar-menu {background-color: #761212;}}
 @media screen and (max-width: 1024px) {
  #form-search,#search-results,#search-status{padding: 10px;}
   .back-to-top-link {
