@@ -627,10 +627,7 @@ $(document).ready(function () {
       modal()
     }
     catch(err) {
-    
-    }
-  
-    }
+    }}
 
     let stopWords = [',', 'i', 'u', ' ', ':', 'ili', 'ako', 'can', 'cannot', 'can\'t', 'could', 'couldn\'t', 'how', 'is', 'isn\'t', 'it', 'its', 'it\'s', 'that', 'the', 'their', 'there', 'they', 'they\'re', 'them', 'to', 'too', 'us', 'very', 'was', 'we', 'well', 'were', 'what', 'whatever', 'when', 'whenever', 'where', 'with', 'would', 'yet', 'you', 'your', 'yours', 'yourself', 'yourselves', 'the', 'vanilla', 'javascript', 'js'];
 
