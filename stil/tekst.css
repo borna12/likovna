@@ -174,7 +174,17 @@ border-bottom: 1px solid black;
   box-shadow: 0 0 0 3px #4e85c0;
 }
 #search-results{margin-left: 0;}
-
+figure {
+  display: inline-block;
+  margin-right: 10px; /* adjust as needed */
+  float: left;
+}
+figure img {
+  vertical-align: top;
+}
+figure figcaption {
+  text-align: center;
+}
 
 body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: visible !important; overflow:scroll!important}
 
