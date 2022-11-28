@@ -1,5 +1,5 @@
-let pointsURL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdynbTdIJPNWUtx-a5joIjDxx3uifMLbWhJgsr2fPT7w0ErRJ3-3BdCgMsUZTPzcpmgAxipyqyBRjB/pub?gid=0&single=true&output=csv";
+let vol1 =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQdynbTdIJPNWUtx-a5joIjDxx3uifMLbWhJgsr2fPT7w0ErRJ3-3BdCgMsUZTPzcpmgAxipyqyBRjB/pub?gid=0&single=true&output=csv";
 
 
 function copyClipboard(e) { if (document.body.createTextRange) (t = document.body.createTextRange()).moveToElementText(e), t.select(), document.execCommand("Copy"), t.removeAllRanges(); else if (window.getSelection) { var t, a = window.getSelection(); (t = document.createRange()).selectNodeContents(e), a.removeAllRanges(), a.addRange(t), document.execCommand("Copy"), a.removeAllRanges(), e.setAttribute("data-tooltip","citat kopiran")} 
@@ -58,10 +58,10 @@ function modal(e){
   if (e.id=="impresum"){$(".modal-card-title").html("Impresum");$(".modal-card-body").html('<p><strong>Glavni urednik:</strong>&nbsp;Marijan Flander<br /> <strong>Uredni&scaron;tvo:&nbsp;</strong>Radivoj Hudetz (pomoćnik glavnog urednika), Zdenko Jajčević, Jelka Paulić<br /> <strong>Stručni sekretar:</strong>&nbsp;Tatjana Sabol<br /> <strong>Lektori:</strong>&nbsp;Ljiljana Domljan, Marko Kovačević, Branka Peruza-Kru&scaron;ić<br /> <strong>Urednici za ilustracije:</strong>&nbsp;Dubravka Rakoci, Zdenko Jajčević (stručni suradnik)<br /> <strong>Crteži:&nbsp;</strong>Željko Brnetić, Borko Jurin, Nela Krstić<br /> <strong>Grafičko-tehnički urednici:</strong>&nbsp;Vladimir Mesić, Agata Fučkan, Du&scaron;an Žvab<br /> <strong>Korektori:</strong>&nbsp;Ljerka Mlinar, Žarko Anić-Antić, Sanja Petričević, Jasna Rončević<br /> <strong>Korice i ovitak:&nbsp;</strong>Ivan Ga&scaron;pić<br /> <strong>Godina izdanja:</strong>&nbsp;1984</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:&nbsp;</strong>Suzana Caganić</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>');  $(".modal-card-foot a").html("")}
   else{
   adresa=window.location.href.split('#vrh')[0]
-  broj=Number(e.getAttribute("data-stranica"))
+  broj=Number(e.getAttribute("data-stranica"))+6
   tekst=e.getAttribute("data-tekst")
   $(".modal-card-title").html(e.innerText)
-  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/Sportski-"+broj+".pdf' target='_blank'><img src='thumbnail/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000);'></a><p>Natuknica: "+e.innerText+"</p><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p>"+tekst+"</p><p><a href='./web/viewer.html?file="+adresa+"/stranice/Sportski-"+broj+".pdf' target='_blank'>Vidi PDF...</a></p>")
+  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik/prvi-svezak.pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000);'><figcaption><a href='./web/viewer.html?file="+adresa+"/stranice/lik1/prvi-svezak.pdf#page="+broj+"' target='_blank'>Vidi PDF...</a><figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
 
 
   vrijeme = new Date()
@@ -71,12 +71,25 @@ function modal(e){
 
   $(".modal-card-foot a").html(e.innerText+". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1984. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;"+adresa+"stranice/Sportski-"+broj+".pdf&#62;.")}
 
+
+  var maxLength = 300;
+  $(".show-read-more").each(function(){
+      var myStr = $(this).html();
+      if($.trim(myStr).length > maxLength){
+          br= myStr.indexOf(' ', maxLength);
+          var newStr = myStr.substring(0, br);
+          var removedStr = myStr.substring(br, $.trim(myStr).length);
+          $(this).empty().html(newStr);
+          $(this).append(' <a href="javascript:void(0);" class="read-more"><strong>[pročitaj do kraja]</strong></a>');
+          $(this).append('<span class="more-text">' + removedStr + '</span>');
+      }
+  });
+  $(".read-more").click(function(){
+      $(this).siblings(".more-text").contents().unwrap();
+      $(this).remove();
+  });
+
 }
-
-
-
-
-
 
 $(document).ready(function () {
 
@@ -98,13 +111,22 @@ $(document).ready(function () {
         $(this).children(".dropdown-menu").toggle();
         $(".ajde").toggleClass("is-active");
       });
+
+        // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+
+});
   });
 
 
 
   let results;
   
-  const csvData = Papa.parse(pointsURL, {
+  const csvData = Papa.parse(vol1, {
         dynamicTyping: true,
         download: true,
         header: true,
@@ -122,7 +144,6 @@ $(document).ready(function () {
     }
     document.getElementById("loader").style.display = "none";
     document.getElementById("myDiv").style.display = "block";
-
   }, 1500);
   
 
@@ -610,7 +631,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < results.length; i++) {
           var obj = results[i];
-          resultList.innerHTML += "<a data-target='modal-js-example' class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline trazen' data-target='modal-js-example' data-stranica='"+obj.article.Stranica+"'  data-tekst='"+obj.article.Tekst+"'  onclick='modal(this)'  target='_blank'><li class='ikone' style='background-image: url(\"thumbnail/("+obj.article.Stranica+").jpg\")'>" + obj.article.Natuknica + "</li></a>"
+          resultList.innerHTML += "<a data-target='modal-js-example' class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline trazen' data-target='modal-js-example' data-stranica='"+obj.article.Stranica+"'  data-tekst='"+obj.article.Tekst+"'  onclick='modal(this)'  target='_blank'><li class='ikone' style='background-image: url(\"thumbnail\lik1\("+obj.article.Stranica+").jpg\")'>" + obj.article.Natuknica + "</li></a>"
 
         }
         //results.article.title

@@ -36,15 +36,42 @@
     </div>
   </section>
   <nav class="navbar" role="navigation" aria-label="main navigation">
+    <a role="button" class="navbar-burger" data-target="navbarBasicExample" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
     <div id="navbarBasicExample" class="navbar-menu"><div class="container">
       <div class="navbar-start">
+        
         <a class="navbar-item js-modal-trigger" id="impresum" data-target='modal-js-example' onclick='modal(this)' >
           Impresum
         </a>
   
-        <a class="navbar-item" href="knjiga/" target="_blank">
-          Prelistaj
-        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Prelistaj
+          </a>
+      
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Svezak 1
+            </a>
+            <a class="navbar-item">
+              Svezak 1
+            </a>
+            <a class="navbar-item">
+              Svezak 2
+            </a>
+            <a class="navbar-item">
+              Svezak 3
+            </a>
+            <a class="navbar-item">
+              Svezak 4
+            </a>
+            
+          </div>
+        </div>
       </div></div>
     </div>
   </nav>
