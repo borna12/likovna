@@ -61,7 +61,7 @@ function modal(e){
   broj=Number(e.getAttribute("data-stranica"))+6
   tekst=e.getAttribute("data-tekst")
   $(".modal-card-title").html(e.innerText)
-  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik/prvi-svezak.pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik1/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
+  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik1/prvi-svezak.pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik1/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
 
 
   vrijeme = new Date()
