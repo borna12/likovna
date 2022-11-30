@@ -1,7 +1,7 @@
 import os, glob
 import xlsxwriter
 
-adresa="/".join(os.getcwd().split(os.sep))+"/prvi-svezak-txt"
+adresa="/".join(os.getcwd().split(os.sep))+"/cetvrti-svezak-txt"
 workbook = xlsxwriter.Workbook('demo.xlsx')
 worksheet = workbook.add_worksheet()
 worksheet.write('A1', 'Natuknica')

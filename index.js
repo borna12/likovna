@@ -1,5 +1,6 @@
 let vol1 =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vQdynbTdIJPNWUtx-a5joIjDxx3uifMLbWhJgsr2fPT7w0ErRJ3-3BdCgMsUZTPzcpmgAxipyqyBRjB/pub?gid=0&single=true&output=csv";
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKkcxfOz1Nk0eNjHWSqywlAAJD7YYHO2-EIjXCdl77CxqL9l5rweyw5PDNnFc-yxMLUqawxeX8Ojw/pub?gid=0&single=true&output=csv";
+
 
 
 function copyClipboard(e) { if (document.body.createTextRange) (t = document.body.createTextRange()).moveToElementText(e), t.select(), document.execCommand("Copy"), t.removeAllRanges(); else if (window.getSelection) { var t, a = window.getSelection(); (t = document.createRange()).selectNodeContents(e), a.removeAllRanges(), a.addRange(t), document.execCommand("Copy"), a.removeAllRanges(), e.setAttribute("data-tooltip","citat kopiran")} 
@@ -55,13 +56,14 @@ function modal(e){
       closeAllModals();
     }
   });
-  if (e.id=="impresum"){$(".modal-card-title").html("Impresum");$(".modal-card-body").html('<p><strong>Glavni urednik:</strong>&nbsp;Marijan Flander<br /> <strong>Uredni&scaron;tvo:&nbsp;</strong>Radivoj Hudetz (pomoćnik glavnog urednika), Zdenko Jajčević, Jelka Paulić<br /> <strong>Stručni sekretar:</strong>&nbsp;Tatjana Sabol<br /> <strong>Lektori:</strong>&nbsp;Ljiljana Domljan, Marko Kovačević, Branka Peruza-Kru&scaron;ić<br /> <strong>Urednici za ilustracije:</strong>&nbsp;Dubravka Rakoci, Zdenko Jajčević (stručni suradnik)<br /> <strong>Crteži:&nbsp;</strong>Željko Brnetić, Borko Jurin, Nela Krstić<br /> <strong>Grafičko-tehnički urednici:</strong>&nbsp;Vladimir Mesić, Agata Fučkan, Du&scaron;an Žvab<br /> <strong>Korektori:</strong>&nbsp;Ljerka Mlinar, Žarko Anić-Antić, Sanja Petričević, Jasna Rončević<br /> <strong>Korice i ovitak:&nbsp;</strong>Ivan Ga&scaron;pić<br /> <strong>Godina izdanja:</strong>&nbsp;1984</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:&nbsp;</strong>Suzana Caganić</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>');  $(".modal-card-foot a").html("")}
+  if (e.id=="impresum"){$(".modal-card-title").html("Impresum");$(".modal-card-body").html('<p><strong>Glavni urednici:</strong>&nbsp;Slavko Batušić, Andre Mohorovičić, Mirko Šeper<br />  <strong>Godina izdanja:</strong>&nbsp;1959–1966.<br /><strong>Broj svezaka:</strong>4</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:&nbsp;</strong>Suzana Caganić</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>');  $(".modal-card-foot a").html("")}
   else{
   adresa=window.location.href.split('#vrh')[0]
   broj=Number(e.getAttribute("data-stranica"))+6
   tekst=e.getAttribute("data-tekst")
+  vol=e.getAttribute("data-vol")
   $(".modal-card-title").html(e.innerText)
-  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik1/prvi-svezak.pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik1/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
+  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik"+vol+"/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
 
 
   vrijeme = new Date()
@@ -125,7 +127,8 @@ $(document).ready(function () {
 
 
   let results;
-  
+  let filesData = []
+
   const csvData = Papa.parse(vol1, {
         dynamicTyping: true,
         download: true,
@@ -296,7 +299,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="a" || obj.Natuknica[0].toLowerCase()=="à" || obj.Natuknica.slice(0, 2).toLowerCase()=="»a"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>"
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>"
                 br++;}
                   }
                  
@@ -305,7 +308,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="b" || obj.Natuknica.slice(0, 2).toLowerCase()=="»b"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -313,7 +316,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="c"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -321,7 +324,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="č" || obj.Natuknica.slice(0, 2).toLowerCase()=="»č" || obj.Natuknica.slice(0, 2).toLowerCase()=="»4"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -329,7 +332,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="ć"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -337,7 +340,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="d" || obj.Natuknica[0].toLowerCase()=="2" || obj.Natuknica.slice(0, 2).toLowerCase()=="»d"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -345,7 +348,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="e"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»e"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -353,7 +356,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="f"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»f"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -361,7 +364,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="g"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»g"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -369,7 +372,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="h"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»h"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -377,7 +380,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="i"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»i"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -385,7 +388,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="j"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»j"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -393,7 +396,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="k"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»k"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -401,7 +404,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="l"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»l"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -409,7 +412,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica.slice(0, 2).toLowerCase()=="lj"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -417,7 +420,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="o"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»o"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -425,7 +428,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="p"  || obj.Natuknica[0].toLowerCase()=="5"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»p"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -433,7 +436,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="r"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»r"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -441,7 +444,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="s"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»s"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -449,7 +452,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="q"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»q"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -457,7 +460,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="s"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»s"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -465,7 +468,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="š"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»š"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -473,7 +476,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="t"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»t" || obj.Natuknica.slice(0, 3).toLowerCase()=="»13"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -481,7 +484,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="u"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»u"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -489,7 +492,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="v"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»v"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -497,7 +500,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="w"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»w"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -505,7 +508,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="y"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»y"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -513,7 +516,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="z"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»z"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -521,7 +524,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="ž"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»ž"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -529,7 +532,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="n"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»n"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -537,7 +540,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="m"  || obj.Natuknica.slice(0, 2).toLowerCase()=="»m"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -546,7 +549,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica.slice(0, 2).toLowerCase()=="dž"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -554,7 +557,7 @@ $(document).ready(function () {
                 for (var i = 0; i < podatci.length; i++) {
                     var obj = podatci[i];
                     if (obj.Natuknica[0].toLowerCase()=="đ"){
-                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"'  data-tekst='"+obj.Tekst+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
+                    resultList.innerHTML += "<li ><a data-target='modal-js-example' data-stranica='"+obj.Stranica+"' data-tekst='"+obj.Tekst+"'  data-vol='"+obj.Vez+"'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>";
                     br++;}
                   }
               }
@@ -631,7 +634,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < results.length; i++) {
           var obj = results[i];
-          resultList.innerHTML += "<a data-target='modal-js-example' class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline trazen' data-target='modal-js-example' data-stranica='"+obj.article.Stranica+"'  data-tekst='"+obj.article.Tekst+"'  onclick='modal(this)'  target='_blank'><li class='ikone' style='background-image: url(\"thumbnail/lik1/\("+obj.article.Stranica+").jpg\")'>" + obj.article.Natuknica + "</li></a>"
+          resultList.innerHTML += "<a data-target='modal-js-example' class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline trazen' data-target='modal-js-example' data-stranica='"+obj.article.Stranica+"'  data-tekst='"+obj.article.Tekst+"'  data-vol='"+obj.article.Vez+"' onclick='modal(this)'  target='_blank'><li class='ikone' style='background-image: url(\"thumbnail/lik"+obj.article.Vez+"/\("+obj.article.Stranica+").jpg\")'>" + obj.article.Natuknica + "</li></a>"
 
         }
         //results.article.title
