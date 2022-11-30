@@ -63,7 +63,7 @@ function modal(e){
   tekst=e.getAttribute("data-tekst")
   vol=e.getAttribute("data-vol")
   $(".modal-card-title").html(e.innerText)
-  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik"+vol+"/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
+  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik"+vol+"/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p>Svezak: "+ vol+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
 
 
   vrijeme = new Date()
@@ -71,7 +71,7 @@ function modal(e){
   t_mjesec = vrijeme.getMonth()+1
   t_dan = vrijeme.getDate()
 
-  $(".modal-card-foot a").html(e.innerText+". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1984. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;"+adresa+"stranice/Sportski-"+broj+".pdf&#62;.")}
+  $(".modal-card-foot a").html(e.innerText+". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1984. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;"+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf&#62;.")}
 
 
   var maxLength = 300;
