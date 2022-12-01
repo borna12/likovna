@@ -59,7 +59,9 @@ function modal(e){
   if (e.id=="impresum"){$(".modal-card-title").html("Impresum");$(".modal-card-body").html('<p><strong>Glavni urednici:</strong>&nbsp;Slavko Batušić, Andre Mohorovičić, Mirko Šeper<br />  <strong>Godina izdanja:</strong>&nbsp;1959–1966.<br /><strong>Broj svezaka:</strong>4</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:&nbsp;</strong>Suzana Caganić</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>');  $(".modal-card-foot a").html("")}
   else{
   adresa=window.location.href.split('#vrh')[0]
-  broj=Number(e.getAttribute("data-stranica"))+6
+  if (Number(e.getAttribute("data-vol"))=="4"){broj=Number(e.getAttribute("data-stranica"))+9}
+  else{  broj=Number(e.getAttribute("data-stranica"))+6}
+
   tekst=e.getAttribute("data-tekst")
   vol=e.getAttribute("data-vol")
   $(".modal-card-title").html(e.innerText)
