@@ -1,5 +1,5 @@
 let vol1 =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKkcxfOz1Nk0eNjHWSqywlAAJD7YYHO2-EIjXCdl77CxqL9l5rweyw5PDNnFc-yxMLUqawxeX8Ojw/pub?gid=0&single=true&output=csv";
+"podatci.csv";
 
 
 
@@ -63,6 +63,7 @@ function modal(e){
   else{  broj=Number(e.getAttribute("data-stranica"))+6}
 
   tekst=e.getAttribute("data-tekst")
+  if (tekst=="null"){tekst=""}
   vol=e.getAttribute("data-vol")
   $(".modal-card-title").html(e.innerText)
   $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik"+vol+"/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p>Svezak: "+ vol+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
