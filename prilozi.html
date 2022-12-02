@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hr" >
+<head>
+
+
+  <meta http-equiv="Content-Type" content="text/html;">
+  <title>Enciklopedija likovnih umjetnosti</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="likovna umjetnost, enciklopedija, Andre Mohorovičić, 1959–1966., Slavko Batušić, Mirko Šeper, Leksikografski zavod Miroslav Krleža">
+  <meta name="author" content="LZMK, Andre Mohorovičić">
+  <meta property="og:title" content="Enciklopedija likovnih umjetnosti">
+<meta property="og:image" content="og-slika.jpg">
+  <!-- Compiled and minified JavaScript -->
+  <link rel="stylesheet" href="bulma/css/bulma.min.css">
+  <link rel="stylesheet" href="bulma/css/bulma-tooltip.min.css">
+  <link rel="stylesheet" href="stil/leaflet.css">
+  <link title="style" href="stil/tekst.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="stil/prilozi.css">
+</head>
+<body>
+  <div id="myDiv" class="animate-bottom">
+  <section class="hero is-info">
+    <div class="hero-body">
+      <div class="container" style="text-align: center;">
+        <p class="title" id="vrh">
+          <img src="logo.png">
+        </p>
+        <p class="subtitle">
+
+        </p>
+      </div>
+    </div>
+  </section>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <a role="button" class="navbar-burger" data-target="navbarBasicExample" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+    <div id="navbarBasicExample" class="navbar-menu"><div class="container">
+      <div class="navbar-start">
+        <a class="navbar-item js-modal-trigger" href="index.html">
+          Naslovnica
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Prelistaj
+          </a>
+      
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="knjiga/vol1.html">
+              Svezak 1
+            </a>
+            <a class="navbar-item" href="knjiga/vol2.html">
+              Svezak 2
+            </a>
+            <a class="navbar-item" href="knjiga/vol3.html">
+              Svezak 3
+            </a>
+            <a class="navbar-item" href="knjiga/vol4.html">
+              Svezak 4
+            </a>
+          </div>
+        </div>
+        <a class="navbar-item js-modal-trigger" id="impresum" data-target="modal-js-example" onclick="modal(this)">
+          Impresum
+        </a>
+      </div></div>
+    </div>
+  </nav>
+  <div class="container">
+  <div class="content">
+
+     <div class="gallery">
+        <a target="_blank" onclick="modal(this)" id="fdsf" class="js-modal-trigger" data-target="modal-js-example">
+          <img src="prilozi/(1).jpg" alt="Cinque Terre" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+      
+      <div class="gallery">
+        <a target="_blank" href="img_forest.jpg">
+          <img src="prilozi/(2).jpg" alt="Forest" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+      
+      <div class="gallery">
+        <a target="_blank" href="img_lights.jpg">
+          <img src="prilozi/(3).jpg" alt="Northern Lights" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+      
+      <div class="gallery">
+        <a target="_blank" href="img_mountains.jpg">
+          <img src="prilozi/(4).jpg" alt="Mountains" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+ 
+
+  </div>
+</div>
+
+  <!-- Mirrored from hrevija.lzmk.hr/web/HR/katknj.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 May 2022 16:38:14 GMT -->
+
+  <footer class="footer" style="clear: both;">
+    <div class="content has-text-centered">
+
+      <p><a href="https://www.lzmk.hr/"><img src="lzmk.png" style="margin: auto;"></a></p>
+      <p>
+
+        ©
+        <script>document.write(new Date().getFullYear())</script>2022 Leksikografski zavod Miroslav Krleža. Sva prava
+        pridržana.
+      </p>
+    </div>
+  </footer>
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div id="image-map"></div>
+<div id="map-sizer"></div>
+        </section>
+        <footer class="modal-card-foot">
+          <a onclick="copyClipboard(this)" data-tooltip="kopiraj citat" class="has-tooltip-top is-primary">citiraj</a>
+        </footer>
+        <!-- Your content -->
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div></div>
+  <script src="leaflet.js"></script>
+  <script src="papaparse.min.js"></script>
+  <script src="js/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+  <link href='stil/leaflet.fullscreen.css' rel='stylesheet' />
+<script src='js/Leaflet.fullscreen.min.js'></script>
+  <script  src="js/prilozi.js"></script>
+</body>
+
+
+<!-- partial:index.partial.html -->
+
+</html>
