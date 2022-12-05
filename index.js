@@ -62,6 +62,8 @@ function modal(e){
   if (Number(e.getAttribute("data-vol"))=="4"){broj=Number(e.getAttribute("data-stranica"))+9}
   else{  broj=Number(e.getAttribute("data-stranica"))+6}
 
+  if (Number(e.getAttribute("data-vol"))=="3" && broj>=103)
+{broj=broj+14}
   tekst=e.getAttribute("data-tekst")
   if (tekst=="null"){tekst=""}
   vol=e.getAttribute("data-vol")
