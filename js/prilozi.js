@@ -9,7 +9,7 @@ Papa.parse(slike, {
 function addPoints(data) {
   data = data.data;
   for (let row = 0; row < data.length; row++) {
-    $("#prilozi").append(' <figure><a target="_blank" onclick="modal(this)" class="js-modal-trigger" data-target="modal-js-example" data-tekst="'+data[row].Tekst+'" data-id="'+data[row].ID+'" data-vol="'+data[row].Vol+'" data-naslov="'+data[row].Naslov+'"><img src="../prilozi/vol'+data[row].Vol+'/('+data[row].ID+').jpeg" alt="Cinque Terre" width="600" height="400"></a><figcaption">'+data[row].Tekst+'</figcaption></figure>')
+    $("#prilozi").append(' <figure><a target="_blank" onclick="modal(this)" class="js-modal-trigger" data-target="modal-js-example" data-tekst="'+data[row].Tekst+'" data-id="'+data[row].ID+'" data-vol="'+data[row].Vol+'" data-naslov="'+data[row].Naslov+'"><img src="./prilozi/vol'+data[row].Vol+'/('+data[row].ID+').jpeg" alt="Cinque Terre" width="600" height="400"></a><figcaption">'+data[row].Tekst+'</figcaption></figure>')
   }
   $("#impresum").click()
 }
@@ -142,7 +142,7 @@ else{
   tekst=e.getAttribute("data-tekst")
   naslov=e.getAttribute("data-naslov")
 
-  let imageSrc = "../prilozi/vol"+vol+"/("+id+").jpeg";
+  let imageSrc = "./prilozi/vol"+vol+"/("+id+").jpeg";
   $(".modal-card-foot").html(tekst)
   $(".modal-card-title").html(naslov)
   
