@@ -142,7 +142,7 @@ else{
   tekst=e.getAttribute("data-tekst")
   naslov=e.getAttribute("data-naslov")
 
-  let imageSrc = "./prilozi/vol"+vol+"/("+id+").jpeg";
+  let imageSrc = "../prilozi/vol"+vol+"/("+id+").jpeg";
   $(".modal-card-foot").html(tekst)
   $(".modal-card-title").html(naslov)
   
