@@ -1,5 +1,5 @@
 let vol1 =
-"podatci2.csv";
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKkcxfOz1Nk0eNjHWSqywlAAJD7YYHO2-EIjXCdl77CxqL9l5rweyw5PDNnFc-yxMLUqawxeX8Ojw/pub?output=csv";
 
 
 
@@ -82,22 +82,23 @@ function modal(e){
   if (Number(e.getAttribute("data-vol"))=="3" && broj>=103)
 {broj=broj+14}
   tekst=e.getAttribute("data-tekst")
-  poveznica=e.getAttribute("data-poveznica").split("; ")
   if (tekst=="null"){tekst=""}
   
   $(".modal-card-title").html(e.innerText)
-  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik"+vol+"/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p>Svezak: "+ vol+"</p><p class='show-read-more'>"+tekst+"</p><p class='vidi'><span>v. </span></p><p></p>")
-  if (poveznica=="null"){$(".vidi").hide()}
-  else{for (var i = 0; i < poveznica.length; i++) {
-    $(".vidi").append("<a onclick='povezivanje(this)'><em>"+poveznica[i]+"</em></a>")
-   
-     if (i === poveznica.length - 2){
-      $(".vidi").append(" i ");
-    }
-    else if (i < poveznica.length - 2) {
-      $(".vidi").append(", ");
-    }
-  }}
+  $(".modal-card-body").html("<a href='./web/viewer.html?file="+adresa+"/stranice/lik"+vol+"/likovna-"+vol+".pdf#page="+broj+"' target='_blank'><figure><img src='thumbnail/lik"+vol+"/("+e.getAttribute("data-stranica")+").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: "+ e.getAttribute("data-stranica")+"</p><p>Svezak: "+ vol+"</p><p class='show-read-more'>"+tekst+"</p><p></p>")
+  
+
+  var yourElement = $(".modal-card-body");
+
+  poveznica=e.getAttribute("data-poveznica").split("; ")
+
+  
+  if (poveznica!="null"){
+  for (var i = 0; i < poveznica.length; i++) {
+    var find = poveznica[i];
+    var re = new RegExp(find, 'g');
+    yourElement.html(yourElement.html().replace(re, "<a onclick='povezivanje(this)'>"+poveznica[i]+"</a>"));
+}}
 
   vrijeme = new Date()
   t_godina = vrijeme.getFullYear()
@@ -179,7 +180,7 @@ $(document).ready(function () {
     }
     document.getElementById("loader").style.display = "none";
     document.getElementById("myDiv").style.display = "block";
-  }, 1500);
+  }, 3000);
   
 
   function autocomplete(inp, arr) {
