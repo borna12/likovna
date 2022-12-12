@@ -1,5 +1,5 @@
 let vol1 =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKkcxfOz1Nk0eNjHWSqywlAAJD7YYHO2-EIjXCdl77CxqL9l5rweyw5PDNnFc-yxMLUqawxeX8Ojw/pub?output=csv";
+"podatci.csv";
 
 
 
