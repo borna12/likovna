@@ -1,8 +1,4 @@
-let vol1 =
-"podatci.csv";
-
-
-
+let vol1 ="podatci.csv";
 function copyClipboard(e) { if (document.body.createTextRange) (t = document.body.createTextRange()).moveToElementText(e), t.select(), document.execCommand("Copy"), t.removeAllRanges(); else if (window.getSelection) { var t, a = window.getSelection(); (t = document.createRange()).selectNodeContents(e), a.removeAllRanges(), a.addRange(t), document.execCommand("Copy"), a.removeAllRanges(), e.setAttribute("data-tooltip","citat kopiran")} 
 const myTimeout = setTimeout(myGreeting, 2000);
 
@@ -180,7 +176,7 @@ $(document).ready(function () {
     }
     document.getElementById("loader").style.display = "none";
     document.getElementById("myDiv").style.display = "block";
-  }, 3000);
+  }, 1500);
   
 
   function autocomplete(inp, arr) {
