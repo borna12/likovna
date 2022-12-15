@@ -185,7 +185,7 @@ figure img {
 figure figcaption {
   text-align: center;
 }
-
+#read_more{display: none; }
 body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: visible !important; overflow:scroll!important}
 
 
