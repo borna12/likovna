@@ -82,7 +82,8 @@
 .show-read-more .more-text{
   display: none;
 }
-
+.show-read-more{text-align: justify;}
+tab{display: block; text-align: right;}
 .content ul.kazalo{text-align: center; margin: auto;}
 .content ul.kazalo a {    width: 50px;
   display: inline-block;
