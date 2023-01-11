@@ -81,7 +81,7 @@ function modal(e) {
     if (tekst == "null") { tekst = "" }
 
     $(".modal-card-title").html(e.innerText)
-    $(".modal-card-body").html("<a href='./web/viewer.html?file=" + adresa + "/stranice/lik" + vol + "/likovna-" + vol + ".pdf#page=" + broj + "' target='_blank'><figure><img src='thumbnail/lik" + vol + "/(" + e.getAttribute("data-stranica") + ").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: " + e.getAttribute("data-stranica") + "</p><p>Svezak: " + vol + "</p><p class='show-read-more'>" + tekst + "</p><p></p>")
+    $(".modal-card-body").html("<a href='./web/viewer.html?file=../stranice/lik" + vol + "/likovna-" + vol + ".pdf#page=" + broj + "' target='_blank'><figure><img src='thumbnail/lik" + vol + "/(" + e.getAttribute("data-stranica") + ").jpg' style='float: left; margin-right:10px; filter: drop-shadow(1px 1px 1px #000); max-height:200px'><figcaption>Vidi PDF...<figcaption></figure></a><p>Stranica: " + e.getAttribute("data-stranica") + "</p><p>Svezak: " + vol + "</p><p class='show-read-more'>" + tekst + "</p><p></p>")
 
 
     var yourElement = $(".modal-card-body");
@@ -99,7 +99,7 @@ function modal(e) {
     }
     if (prilog != "null") {
       var re = new RegExp("VIDI PRILOG", 'g');
-      yourElement.html(yourElement.html().replace(re, "<a href=./web/viewer.html?file=" + adresa + "/prilozi/vol" + vol + "/"+prilog+" target='_blank'><strong>VIDI PRILOG</strong></a>"));
+      yourElement.html(yourElement.html().replace(re, "<a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'><strong>VIDI PRILOG</strong></a>"));
     }
 
     vrijeme = new Date()
@@ -107,7 +107,7 @@ function modal(e) {
     t_mjesec = vrijeme.getMonth() + 1
     t_dan = vrijeme.getDate()
 
-    $(".modal-card-foot a").html(e.innerText + ". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1959–1966. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;" + adresa + "/stranice/lik" + vol + "/likovna-" + vol + ".pdf&#62;.")
+    $(".modal-card-foot a").html(e.innerText + ". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1959–1966. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;../stranice/lik" + vol + "/likovna-" + vol + ".pdf&#62;.")
   }
 
 
