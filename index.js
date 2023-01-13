@@ -107,7 +107,7 @@ function modal(e) {
     t_mjesec = vrijeme.getMonth() + 1
     t_dan = vrijeme.getDate()
 
-    $(".modal-card-foot a").html(e.innerText + ". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1959–1966. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;../stranice/lik" + vol + "/likovna-" + vol + ".pdf&#62;.")
+    $(".modal-card-foot a").html(e.innerText + ". <en style='font-style: italic;'>Enciklopedija likovnih umjetnosti</en>. Leksikografski zavod Miroslav Krleža, 1959–1966. Pristupljeno " + t_dan + ". " + t_mjesec + ". " + t_godina + ". 	&#60;"+window.location.href.split('#vrh')[0]+"&#62;.")
   }
 
 
