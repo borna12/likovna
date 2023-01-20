@@ -679,7 +679,7 @@ let serchIndex = (function () {
           }
         }
       }
-      else if (a == "ž") { 
+      else if (a == "Ž") { 
         for (let i = lastDisplayedPost; i < podatci.length; i++) {
           sakri++
           var obj = podatci[i];
