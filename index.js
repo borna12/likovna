@@ -70,7 +70,7 @@ function modal(e) {
       closeAllModals();
     }
   });
-  if (e.id == "impresum") { $(".modal-card-title").html("Impresum"); $(".modal-card-body").html('<p><strong>Tiskano izdanje</strong><br /><strong>Glavni urednici:</strong>&nbsp;Slavko Batušić, Andre Mohorovičić, Mirko Šeper<br />  <strong>Godina izdanja:</strong>&nbsp;1959–1966.<br /><strong>Broj svezaka: </strong>4</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:</strong> Suzana Caganić, Gabrijela Romac</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>'); $(".modal-card-foot a").html("") }
+  if (e.id == "impresum") { $(".modal-card-title").html("Impresum"); $(".modal-card-body").html('<p><strong>Tiskano izdanje</strong><br /><strong>Glavni urednici:</strong>&nbsp;Slavko Batušić, Andre Mohorovičić, Mirko Šeper<br />  <strong>Godina izdanja:</strong> 1959–1966.<br /><strong>Broj svezaka: </strong>4</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:</strong> Suzana Caganić, Gabrijela Romac</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>'); $(".modal-card-foot a").html("") }
   else {
     adresa = window.location.href.split('#vrh')[0]
     if (Number(e.getAttribute("data-vol")) == "4") { broj = Number(e.getAttribute("data-stranica")) + 9 }
@@ -206,12 +206,16 @@ function autocomplete(inp, arr) {
     /*append the DIV element as a child of the autocomplete container:*/
     this.parentNode.appendChild(a);
     /*for each item in the array...*/
-    for (i = 0; i < arr.length; i++) {
+    for (i = 0; i < arr.length; i++) 
+    {
       /*check if the item starts with the same letters as the text field value:*/
-      if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+      if (arr[i].substr(0, val.length).toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") == val.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) {
         /*create a DIV element for each matching element:*/
         b = document.createElement("DIV");
         /*make the matching letters bold:*/
+        if (val.toUpperCase()[0]=="Ž" && arr[i].substr(0, val.length)=="Ž"){
+          
+        }
         b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
         b.innerHTML += arr[i].substr(val.length);
         /*insert a input field that will hold the current array item's value:*/
@@ -737,12 +741,9 @@ let serchIndex = (function () {
     let results = podatci.reduce(function (results, article, index) {
       // Setup priority count
       let priority = 0;
-
       // Assign priority
       //for (let reg of regMap) {
-      var isEvery = regMap.split(" ").every(function (word) { return article.Natuknica.toLowerCase().indexOf(word) > -1 });
-    
-
+      var isEvery = regMap.split(" ").every(function (word) { return article.Natuknica.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(word.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 });
       if (isEvery) {
         priority += 100;
       }
@@ -751,10 +752,7 @@ let serchIndex = (function () {
        if (occurences) { priority += occurences.length; }
      } catch (error) {console.error(error);}*/
       // }
-
-
-
-      // If any matches, push to results
+    // If any matches, push to results
       if (priority > 0) {
         results.push({
           priority: priority,
@@ -768,7 +766,6 @@ let serchIndex = (function () {
     });
     // Display the results
     showResults(results);
-
   }
 
   function showResults(results) {
