@@ -99,7 +99,7 @@ function modal(e) {
     }
     if (prilog != "null") {
       var re = new RegExp("VIDI PRILOG", 'g');
-      yourElement.html(yourElement.html().replace(re, "<a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'><strong>VIDI PRILOG</strong></a>"));
+      yourElement.html(yourElement.html().replace(re, "<a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'><strong><em>VIDI PRILOG</em></strong></a>"));
       var re = new RegExp("v. <em>Prilog", 'g');
       yourElement.html(yourElement.html().replace(re, "v. <em><a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'>Prilog</a></em>"));
     }
