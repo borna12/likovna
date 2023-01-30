@@ -1,4 +1,4 @@
-let vol1 = "podatci.csv";
+let vol1 = "sortirano.csv";
 function copyClipboard(e) {
   if (document.body.createTextRange) (t = document.body.createTextRange()).moveToElementText(e), t.select(), document.execCommand("Copy"), t.removeAllRanges(); else if (window.getSelection) { var t, a = window.getSelection(); (t = document.createRange()).selectNodeContents(e), a.removeAllRanges(), a.addRange(t), document.execCommand("Copy"), a.removeAllRanges(), e.setAttribute("data-tooltip", "citat kopiran") }
   const myTimeout = setTimeout(myGreeting, 2000);
@@ -8,19 +8,13 @@ function copyClipboard(e) {
   }
 }
 function povezivanje(e) {
-  $(".delete").click();
+  
   document.getElementsByTagName("input")[0].value = e.innerText.toUpperCase();
   /*close the list of autocompleted values,
   (or any other open lists of autocompleted values:*/
-  document.getElementById('btnSearch').click();
+  localStorage.setItem("trazi", e.innerText.toUpperCase());
+  window.open(window.location.href, '_blank');
 
-
-  var rez = document.getElementsByClassName("trazen");
-  for (var i = 0; i < rez.length; i++) {
-    if (rez[i].innerText.toUpperCase() == e.innerText.toUpperCase()) {
-      rez[i].click()
-    }
-  }
 
 }
 
@@ -190,11 +184,34 @@ var podatci
 var natuknice = []
 setTimeout(() => {
   podatci = results
-  for (var i = 0; i < podatci.length; i++) {
+  for (var i = 0; i < podatci.length-1; i++) {
     natuknice.push(podatci[i].Natuknica)
   }
   document.getElementById("loader").style.display = "none";
   document.getElementById("myDiv").style.display = "block";
+
+  if ("trazi" in localStorage){
+    document.getElementsByTagName("input")[0].value = localStorage.getItem("trazi")
+    /*close the list of autocompleted values,
+    (or any other open lists of autocompleted values:*/
+    
+  
+    document.getElementById('btnSearch').click();
+    var rez = document.getElementsByClassName("trazen");
+    for (var i = 0; i < rez.length; i++) {
+      if (rez[i].innerText.toUpperCase() == localStorage.getItem("trazi").toUpperCase()) {
+        rez[i].click()
+      }
+    }localStorage.removeItem("trazi");
+    
+  }
+
+  /*var rez = document.getElementsByClassName("trazen");
+  for (var i = 0; i < rez.length; i++) {
+    if (rez[i].innerText.toUpperCase() == e.innerText.toUpperCase()) {
+      rez[i].click()
+    }
+  }*/
 }, 1500);
 
 
