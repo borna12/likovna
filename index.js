@@ -70,7 +70,7 @@ function modal(e) {
       closeAllModals();
     }
   });
-  if (e.id == "impresum") { $(".modal-card-title").html("Impresum"); $(".modal-card-body").html('<p><strong>Tiskano izdanje</strong><br /><strong>Glavni urednici:</strong>&nbsp;Slavko Batušić, Andre Mohorovičić, Mirko Šeper<br />  <strong>Godina izdanja:</strong> 1959–1966.<br /><strong>Broj svezaka: </strong>4</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:</strong> Suzana Caganić, Gabrijela Romac</p><br><p>&copy;2022&nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>'); $(".modal-card-foot a").html("") }
+  if (e.id == "impresum") { $(".modal-card-title").html("Impresum"); $(".modal-card-body").html('<p><strong>Tiskano izdanje</strong><br /><strong>Glavni urednici:</strong>&nbsp;Slavko Batušić, Andre Mohorovičić, Mirko Šeper<br />  <strong>Godina izdanja:</strong> 1959–1966.<br /><strong>Broj svezaka: </strong>4</p><p>&nbsp;</p><p><strong>Mrežno izdanje</strong><br /> <strong>Urednice:&nbsp;</strong>Irina Starčević Stančić, Cvijeta Kraus<br /> <strong>Izrada mrežne stranice:&nbsp;</strong>Josip Mihaljević<br /> <strong>Računalni unos podataka:</strong> Suzana Caganić, Gabrijela Romac</p><br><p>&copy;'+new Date().getFullYear() +' &nbsp;Leksikografski zavod Miroslav Krleža. Sva prava pridržana.</p>'); $(".modal-card-foot a").html("") }
   else {
     adresa = window.location.href.split('#vrh')[0]
     if (Number(e.getAttribute("data-vol")) == "4") { broj = Number(e.getAttribute("data-stranica")) + 9 }
@@ -98,10 +98,20 @@ function modal(e) {
       }
     }
     if (prilog != "null") {
+      if(prilog.split("; ").length==2){
+        prilozi=prilog.split("; ")
+        var re = new RegExp("VIDI PRILOG");
+        yourElement.html(yourElement.html().replace(re, "<a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilozi[0]+" target='_blank'><strong><em>VIDI PRILOG</em></strong></a>"));
+        zadnja=yourElement.html().lastIndexOf("VIDI PRILOG");
+        htmlTekst=yourElement.html()
+        htmlTekst=htmlTekst.substring(0, zadnja) + "<a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilozi[1]+" target='_blank'><strong><em>VIDI PRILOG</em></strong></a>" + htmlTekst.substr(zadnja + 11);
+        yourElement.html(htmlTekst)
+      }
+      else{
       var re = new RegExp("VIDI PRILOG", 'g');
       yourElement.html(yourElement.html().replace(re, "<a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'><strong><em>VIDI PRILOG</em></strong></a>"));
       var re = new RegExp("v. <em>Prilog", 'g');
-      yourElement.html(yourElement.html().replace(re, "v. <em><a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'>Prilog</a></em>"));
+      yourElement.html(yourElement.html().replace(re, "v. <em><a href=./web/viewer.html?file=../prilozi/vol" + vol + "/"+prilog+" target='_blank'>Prilog</a></em>"));}
     }
 
     vrijeme = new Date()
@@ -113,7 +123,7 @@ function modal(e) {
   }
 
 
-  var maxLength = 600;
+  var maxLength = 1000;
   $(".show-read-more").each(function () {
     var myStr = $(this).html();
     if ($.trim(myStr).length > maxLength) {
