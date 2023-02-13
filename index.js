@@ -8,14 +8,11 @@ function copyClipboard(e) {
   }
 }
 function povezivanje(e) {
-  
   document.getElementsByTagName("input")[0].value = e.innerText.toUpperCase();
   /*close the list of autocompleted values,
   (or any other open lists of autocompleted values:*/
   localStorage.setItem("trazi", e.innerText.toUpperCase());
   window.open(window.location.href, '_blank');
-
-
 }
 
 function modal(e) {
@@ -37,20 +34,16 @@ function modal(e) {
 
   // Add a click event on buttons to open a specific modal
   (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-
     const modal = $trigger.dataset.target;
     const $target = document.getElementById(modal);
-
     $trigger.addEventListener('click', () => {
       openModal($target);
-
     });
   });
 
   // Add a click event on various child elements to close the parent modal
   (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button ') || []).forEach(($close) => {
     const $target = $close.closest('.modal');
-
     $close.addEventListener('click', () => {
       closeModal($target);
     });
@@ -59,7 +52,6 @@ function modal(e) {
   // Add a keyboard event to close all modals
   document.addEventListener('keydown', (event) => {
     const e = event || window.event;
-
     if (e.keyCode === 27) { // Escape key
       closeAllModals();
     }
@@ -79,11 +71,8 @@ function modal(e) {
 
 
     var yourElement = $(".modal-card-body");
-
     poveznica = e.getAttribute("data-poveznica").split("; ")
     prilog = e.getAttribute("data-prilog")
-
-
     if (poveznica != "null") {
       for (var i = 0; i < poveznica.length; i++) {
         var find = poveznica[i];
@@ -319,19 +308,7 @@ function autocomplete(inp, arr) {
 }
 autocomplete(document.getElementById("input-search"), natuknice);
 
-let serchIndex = (function () {
-  var json = null;
-  $.ajax({
-    'async': false,
-    'global': false,
-    'url': "indeks.json",
-    'dataType': "json",
-    'success': function (data) {
-      json = data;
-    }
-  });
-  return json;
-})();
+
 
 (function () {
 
