@@ -8,10 +8,14 @@ function copyClipboard(e) {
   }
 }
 function povezivanje(e) {
-  document.getElementsByTagName("input")[0].value = e.innerText.toUpperCase();
+  try{document.getElementsByTagName("input")[0].value = e.innerText.toUpperCase(); }
+  catch{ document.getElementsByTagName("input")[0].value = e}
+  
+
   /*close the list of autocompleted values,
   (or any other open lists of autocompleted values:*/
-  localStorage.setItem("trazi", e.innerText.toUpperCase());
+  try{  localStorage.setItem("trazi", e.innerText.toUpperCase());}
+  catch{localStorage.setItem("trazi", e.replace("_"," "))}
   window.open(window.location.href, '_blank');
 }
 
@@ -110,7 +114,7 @@ function modal(e) {
   $(".show-read-more").each(function () {
     var myStr = $(this).html();
     if ($.trim(myStr).length > maxLength) {
-      br = myStr.indexOf(' ', maxLength);
+      br = myStr.indexOf('<br>', maxLength);
       var newStr = myStr.substring(0, br);
       var removedStr = myStr.substring(br, $.trim(myStr).length);
       $(this).empty().html(newStr);
