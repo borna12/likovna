@@ -8,21 +8,28 @@ function copyClipboard(e) {
   }
 }
 function povezivanje(e) {
-  try{document.getElementsByTagName("input")[0].value = e.innerText.toUpperCase(); }
-  catch{ document.getElementsByTagName("input")[0].value = e}
-  
+ try{
+  document.getElementsByTagName("input")[0].value = e.innerText.toUpperCase();
+  localStorage.setItem("trazi", e.innerText.toUpperCase());
 
+}
+  catch{
+    document.getElementsByTagName("input")[0].value = String(e).replace("_"," ");
+    localStorage.setItem("trazi", String(e).replace("_"," "));
+  }
   /*close the list of autocompleted values,
   (or any other open lists of autocompleted values:*/
-  try{  localStorage.setItem("trazi", e.innerText.toUpperCase());}
-  catch{localStorage.setItem("trazi", e.replace("_"," "))}
   window.open(window.location.href, '_blank');
+
+
 }
 
 function modal(e) {
   // Functions to open and close a modal
   function openModal($el) {
-    $el.classList.add('is-active');
+    try{
+    $el.classList.add('is-active');}
+    catch{}
   }
 
   function closeModal($el) {
@@ -38,16 +45,20 @@ function modal(e) {
 
   // Add a click event on buttons to open a specific modal
   (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+
     const modal = $trigger.dataset.target;
     const $target = document.getElementById(modal);
+
     $trigger.addEventListener('click', () => {
       openModal($target);
+
     });
   });
 
   // Add a click event on various child elements to close the parent modal
   (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button ') || []).forEach(($close) => {
     const $target = $close.closest('.modal');
+
     $close.addEventListener('click', () => {
       closeModal($target);
     });
@@ -56,6 +67,7 @@ function modal(e) {
   // Add a keyboard event to close all modals
   document.addEventListener('keydown', (event) => {
     const e = event || window.event;
+
     if (e.keyCode === 27) { // Escape key
       closeAllModals();
     }
@@ -75,8 +87,11 @@ function modal(e) {
 
 
     var yourElement = $(".modal-card-body");
+
     poveznica = e.getAttribute("data-poveznica").split("; ")
     prilog = e.getAttribute("data-prilog")
+
+
     if (poveznica != "null") {
       for (var i = 0; i < poveznica.length; i++) {
         var find = poveznica[i];
@@ -110,11 +125,11 @@ function modal(e) {
   }
 
 
-  var maxLength = 1000;
+  var maxLength = 2000;
   $(".show-read-more").each(function () {
     var myStr = $(this).html();
     if ($.trim(myStr).length > maxLength) {
-      br = myStr.indexOf('<br>', maxLength);
+      br = myStr.indexOf('. ', maxLength);
       var newStr = myStr.substring(0, br);
       var removedStr = myStr.substring(br, $.trim(myStr).length);
       $(this).empty().html(newStr);
@@ -312,7 +327,19 @@ function autocomplete(inp, arr) {
 }
 autocomplete(document.getElementById("input-search"), natuknice);
 
-
+let serchIndex = (function () {
+  var json = null;
+  $.ajax({
+    'async': false,
+    'global': false,
+    'url': "indeks.json",
+    'dataType': "json",
+    'success': function (data) {
+      json = data;
+    }
+  });
+  return json;
+})();
 
 (function () {
 
@@ -409,7 +436,7 @@ autocomplete(document.getElementById("input-search"), natuknice);
         for (let i = lastDisplayedPost; i < podatci.length; i++) {
           sakri++
           var obj = podatci[i];
-          if (obj.Natuknica[0].toLowerCase() == "d") {
+          if (obj.Natuknica[0].toLowerCase() == "d" && obj.Natuknica[1].toLowerCase() != "ž") {
             resultList.innerHTML += "<li ><a data-target='modal-js-example' data-poveznica='" + obj.Poveznica + "' data-prilog='"+obj.Prilog+"' data-stranica='" + obj.Stranica + "' data-tekst='" + obj.Tekst + "'  data-vol='" + obj.Vez + "'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>"
             brojka++
             if (brojka == 300) { break }
@@ -519,7 +546,7 @@ autocomplete(document.getElementById("input-search"), natuknice);
         for (let i = lastDisplayedPost; i < podatci.length; i++) {
           sakri++
           var obj = podatci[i];
-          if (obj.Natuknica[0].toLowerCase() == "l" ) {
+          if (obj.Natuknica[0].toLowerCase() == "l" && obj.Natuknica[1].toLowerCase() != "j") {
             resultList.innerHTML += "<li ><a data-target='modal-js-example' data-poveznica='" + obj.Poveznica + "' data-prilog='"+obj.Prilog+"' data-stranica='" + obj.Stranica + "' data-tekst='" + obj.Tekst + "'  data-vol='" + obj.Vez + "'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>"
             brojka++
             if (brojka == 300) { break }
@@ -552,7 +579,7 @@ autocomplete(document.getElementById("input-search"), natuknice);
         for (let i = lastDisplayedPost; i < podatci.length; i++) {
           sakri++
           var obj = podatci[i];
-          if (obj.Natuknica[0].toLowerCase() == "n" ) {
+          if (obj.Natuknica[0].toLowerCase() == "n" && obj.Natuknica[1].toLowerCase() != "j") {
             resultList.innerHTML += "<li ><a data-target='modal-js-example' data-poveznica='" + obj.Poveznica + "' data-prilog='"+obj.Prilog+"' data-stranica='" + obj.Stranica + "' data-tekst='" + obj.Tekst + "'  data-vol='" + obj.Vez + "'  onclick='modal(this)'  class='has-tooltip-arrow js-modal-trigger has-tooltip-multiline'  target='_blank'>" + obj.Natuknica + "</a></li>"
             brojka++
             if (brojka == 300) { break }
