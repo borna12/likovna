@@ -10,8 +10,6 @@
   }
 }
 
-
-
 #loader {
   position: absolute;
   left: 50%;
@@ -194,7 +192,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) { overflow-y: v
 #search-results.stupci{    -webkit-columns: 4;
   -moz-columns: 4;
   columns: 4;margin-left: 2em;}
-
+  .dodatak{text-align: left; display: block;}
 
   @media screen and (max-width: 1023px){
 .navbar-menu {background-color: #761212;}}
